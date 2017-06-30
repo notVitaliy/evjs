@@ -1,0 +1,19 @@
+{
+  "name": "evjs",
+  "version": "0.0.1-alpha0",
+  "description": "Generic genetic/evolution algorithm in JS",
+  "main": "lib/evjs.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/notVitaliy/evjs.git"
+  },
+  "author": "notVitaliy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/notVitaliy/evjs/issues"
+  },
+  "homepage": "https://github.com/notVitaliy/evjs#readme"
+}
