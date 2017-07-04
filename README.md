@@ -27,18 +27,29 @@ const mate = () => {
   // breed 2 individuals
 }
 
-const evjs = new EvJs({
+const evjsConfig = {
+  notification: 0.5 // emit 50% of the logs
+}
+
+const generationConfig = {
   size: 10,
   crossover: 0.7,
   mutation: 0.4,
   keepFittest: true,
   select: 'random',
   pair: 'tournament2',
-  optimizeKey: 'Max',
+  optimizeKey: 'Max'
+}
+
+const individualConfig = {
   fitness,
   mutate,
   mate
-})
+}
+
+const config = Object.assign({}, evjsConfig, generationConfig, individualConfig)
+
+const evjs = new EvJs(config)
 
 evjs.populate(seed)
 evjs.run()
@@ -73,23 +84,6 @@ interface GenerationConfig {
 | pair                  | N/A      | SelectType  | Generation->breed select type to use
 
 
-## Individual Configuration Parameters
-
-```typescript
-interface IndividualConfig {
-  fitness: (entity: any): number
-  mutate: (entity: any): any
-  mate: (mother: any, father: any): [any, any]
-}
-```
-
-| Parameter             | Type     | Description
-| --------------------- | -------- | -----------
-| fitness               | Function | Calculates the fitness score of an individual
-| mutate                | Function | Mutates an individual
-| mate                  | Function | Mates 2 individuals and returns 2 new individuals
-
-
 ### SelectType
 
 | Selectors                 | Description
@@ -97,6 +91,7 @@ interface IndividualConfig {
 | Tournament{N}   | Fittest of <iny>N random individuals
 | Fittest         | Always selects the Fittest individual
 | Random          | Randomly selects an individual
+
 
 ## Optimizer
 
@@ -117,6 +112,23 @@ An algorithm can be either genetic or evolutionary depending on which selection 
 | ------------------- | ----------- | -----------
 | select  (Single)    | Yes         | Selects a single individual for survival from a population
 | pair    (Pair-wise) | Optional    | Selects two individuals from a population for mating/crossover
+
+
+## Individual Configuration Parameters
+
+```typescript
+interface IndividualConfig {
+  fitness: (entity: any): number
+  mutate: (entity: any): any
+  mate: (mother: any, father: any): [any, any]
+}
+```
+
+| Parameter             | Type     | Description
+| --------------------- | -------- | -----------
+| fitness               | Function | Calculates the fitness score of an individual
+| mutate                | Function | Mutates an individual
+| mate                  | Function | Mates 2 individuals and returns 2 new individuals
 
 
 ## Building
