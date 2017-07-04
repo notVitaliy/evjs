@@ -4,7 +4,7 @@ import { Generation, GenerationConfig } from '../generation'
 import { IndividualConfig } from '../individual'
 import { Optimize } from '../utils/optimize'
 
-interface Config extends GenerationConfig, IndividualConfig {
+export interface Config extends GenerationConfig, IndividualConfig {
   iterations?: number,
   notification?: number
 }

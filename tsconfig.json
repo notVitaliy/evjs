@@ -3,7 +3,10 @@
     "target": "es6",
     "sourceMap": true,
     "experimentalDecorators": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "declaration": true,
+    "outDir": "./dist",
+    "module": "commonjs"
   },
   "files": [
     "./src/index.ts"

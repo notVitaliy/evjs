@@ -4,7 +4,7 @@ import { Optimize, Select } from '../utils'
 import { IndividualConfig } from '../individual'
 import { GenerationConfig } from './generation.model'
 
-interface Config extends GenerationConfig, IndividualConfig {}
+export interface Config extends GenerationConfig, IndividualConfig {}
 
 export class Generation {
   private config: GenerationConfig

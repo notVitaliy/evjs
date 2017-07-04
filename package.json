@@ -1,12 +1,14 @@
 {
   "name": "evjs",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Generic genetic/evolution algorithm in JS",
-  "main": "lib/evjs.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "clean": "rimraf ./dist",
+    "prepublish": "npm run clean && tsc",
     "test": "nyc mocha ./src/**/*.spec.ts",
-    "report": "nyc report --reporter=html",
-    "ts-node": "ts-node"
+    "report": "nyc report --reporter=html"
   },
   "nyc": {
     "extension": [
@@ -33,9 +35,7 @@
   "homepage": "https://github.com/notVitaliy/evjs#readme",
   "dependencies": {
     "chalk": "^2.0.1",
-    "chance": "^1.0.10",
-    "ts-node": "^3.1.0",
-    "typescript": "^2.4.1"
+    "chance": "^1.0.10"
   },
   "devDependencies": {
     "@types/chai": "^4.0.1",
@@ -44,6 +44,9 @@
     "chai": "^4.0.2",
     "mocha": "^3.4.2",
     "nyc": "^11.0.3",
-    "sinon": "^2.3.6"
+    "rimraf": "^2.6.1",
+    "sinon": "^2.3.6",
+    "ts-node": "^3.1.0",
+    "typescript": "^2.4.1"
   }
 }
