@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@types/chai@*", "@types/chai@^4.0.1":
+"@types/chai@^4.0.1":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.0.1.tgz#37fea779617cfec3fd2b19a0247e8bbdd5133bf6"
 
@@ -10,14 +10,7 @@
   version "2.2.41"
   resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-2.2.41.tgz#e27cf0817153eb9f2713b2d3f6c68f1e1c3ca608"
 
-"@types/sinon-chai@^2.7.28":
-  version "2.7.28"
-  resolved "https://registry.yarnpkg.com/@types/sinon-chai/-/sinon-chai-2.7.28.tgz#c9f775dee3bd27717f3aa94af3c0c9348e8a8c32"
-  dependencies:
-    "@types/chai" "*"
-    "@types/sinon" "*"
-
-"@types/sinon@*", "@types/sinon@^2.3.2":
+"@types/sinon@^2.3.2":
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/@types/sinon/-/sinon-2.3.2.tgz#1e1e99e67162d78e2db17816892bf93bf5209885"
 
@@ -363,6 +356,13 @@ escape-string-regexp@1.0.5, escape-string-regexp@^1.0.2, escape-string-regexp@^1
 esutils@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/esutils/-/esutils-2.0.2.tgz#0abf4f1caa5bcb1f7a9d8acc6dea4faaa04bac9b"
+
+evjs@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/evjs/-/evjs-0.1.3.tgz#3ab36476b0f1978e5bc969ad6656233fc17a9596"
+  dependencies:
+    chalk "^2.0.1"
+    chance "^1.0.10"
 
 execa@^0.5.0:
   version "0.5.1"
@@ -1240,10 +1240,6 @@ set-blocking@^2.0.0:
 signal-exit@^3.0.0, signal-exit@^3.0.1, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
-
-sinon-chai@^2.11.0:
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/sinon-chai/-/sinon-chai-2.11.0.tgz#93d90f989fff67ce45767077ffe575dde1faea6d"
 
 sinon@^2.3.6:
   version "2.3.6"
