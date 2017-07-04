@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
 import { Individual } from './individual'
-import { configIndividual } from '../mocks/individual.mock'
+import { configIndividual } from '../mocks'
 
 describe('Individual', () => {
   let individual: Individual

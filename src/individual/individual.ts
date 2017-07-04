@@ -1,15 +1,29 @@
+import * as Chance from 'chance'
+const chance = new Chance()
+
 import { IndividualConfig, Fitness, Mutate, Mate } from './individual.model'
 
 export class Individual {
   public entity: any
   public fitness: number
-  
+  public name: {
+    first: string
+    last: string
+  }
+
   private fitnessFn: Fitness
   private mutateFn: Mutate
   private mateFn: Mate
 
   constructor(config: IndividualConfig) {
     this.entity = config.entity
+
+    this.name = {
+      first: chance.first(),
+      last: typeof config.name !== 'undefined' && typeof config.name.last !== 'undefined'
+        ? config.name.last
+        : chance.last()
+    }
 
     this.fitnessFn = config.fitness
     this.mutateFn = config.mutate
@@ -34,6 +48,10 @@ export class Individual {
     const kids = this.mateFn(mother, father)
     const son = this.makeConfig(kids[0])
     const daughter = this.makeConfig(kids[1])
+
+    son.name = daughter.name = {
+      last: other.name.last
+    }
 
     return [
       new Individual(son),

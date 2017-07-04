@@ -4,9 +4,7 @@ import { Individual } from '../individual'
 import { Optimize, Select } from '../utils'
 
 import { Generation } from './generation'
-import { configGeneration } from '../mocks/generation.mock'
-
-import { configIndividual, seed } from '../mocks/individual.mock'
+import { configGeneration, configIndividual, seed } from '../mocks'
 
 describe('Generation', () => {
   const baseConfig = Object.assign({}, configGeneration, configIndividual)

@@ -12,4 +12,9 @@ export interface IndividualConfig {
   mutate: Mutate
   mate: Mate
   entity?: any
+
+  name?: {
+    first?: string
+    last: string
+  }
 }
