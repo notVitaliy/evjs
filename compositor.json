@@ -1,0 +1,85 @@
+{
+  "name": "notVitaliy/evjs",
+  "version": "0.1.4",
+  "libraries": {
+    "xv": "^1.1.25"
+  },
+  "title": "",
+  "branch": "master",
+  "style": {
+    "name": "Williamsburg",
+    "componentSet": {
+      "nav": "nav/BasicNav",
+      "header": "header/LightBannerHeader",
+      "article": "article/ReaderArticle",
+      "footer": "footer/BasicFooter"
+    },
+    "fontFamily": "Montserrat, sans-serif",
+    "heading": {
+      "fontWeight": 600,
+      "letterSpacing": "0.1em"
+    },
+    "colors": {
+      "text": "#346",
+      "background": "#fff",
+      "primary": "#0099e0",
+      "secondary": "#ab61ff",
+      "highlight": "#f7b",
+      "muted": "#fffab3",
+      "border": "#ccd"
+    }
+  },
+  "content": [
+    {
+      "component": "nav",
+      "links": [
+        {
+          "href": "https://github.com/notVitaliy/evjs",
+          "text": "GitHub"
+        },
+        {
+          "href": "https://npmjs.com/package/evjs",
+          "text": "npm"
+        }
+      ]
+    },
+    {
+      "component": "header",
+      "heading": "evjs",
+      "subhead": "Javascript genetic/evolutionary algorithm library",
+      "children": [
+        {
+          "component": "ui/TweetButton",
+          "text": "evjs: Javascript genetic/evolutionary algorithm library",
+          "url": ""
+        },
+        {
+          "component": "ui/GithubButton",
+          "user": "notVitaliy",
+          "repo": "evjs"
+        }
+      ],
+      "text": "v0.1.5"
+    },
+    {
+      "component": "article",
+      "metadata": {
+        "source": "github.readme"
+      },
+      "html": "\n<p>Advanced genetic and evolutionary algorithm library written in Javascript by <a href=\"http://vitaliy.codes\">notVitaliy</a>.</p>\n<h4>Install</h4>\n<pre>yarn add evjs</pre><h2>How To</h2>\n<pre><span class=\"hljs-keyword\">import</span> { EvJs } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&apos;evjs&apos;</span>\n\n<span class=\"hljs-keyword\">const</span> seed = <span class=\"hljs-function\"><span class=\"hljs-params\">()</span> =&gt;</span> {\n  <span class=\"hljs-comment\">// Seed code here</span>\n}\n<span class=\"hljs-keyword\">const</span> fitness = <span class=\"hljs-function\"><span class=\"hljs-params\">()</span> =&gt;</span> {\n  <span class=\"hljs-comment\">// calculate fitness score</span>\n}\n<span class=\"hljs-keyword\">const</span> mutate = <span class=\"hljs-function\"><span class=\"hljs-params\">()</span> =&gt;</span> {\n  <span class=\"hljs-comment\">// mutate an individuals param(s)</span>\n}\n<span class=\"hljs-keyword\">const</span> mate = <span class=\"hljs-function\"><span class=\"hljs-params\">()</span> =&gt;</span> {\n  <span class=\"hljs-comment\">// breed 2 individuals</span>\n}\n\n<span class=\"hljs-keyword\">const</span> evjsConfig = {\n  notification: <span class=\"hljs-number\">0.5</span> <span class=\"hljs-comment\">// emit 50% of the logs</span>\n}\n\n<span class=\"hljs-keyword\">const</span> generationConfig = {\n  size: <span class=\"hljs-number\">10</span>,\n  crossover: <span class=\"hljs-number\">0.7</span>,\n  mutation: <span class=\"hljs-number\">0.4</span>,\n  keepFittest: <span class=\"hljs-literal\">true</span>,\n  select: <span class=\"hljs-string\">&apos;random&apos;</span>,\n  pair: <span class=\"hljs-string\">&apos;tournament2&apos;</span>,\n  optimizeKey: <span class=\"hljs-string\">&apos;Max&apos;</span>\n}\n\n<span class=\"hljs-keyword\">const</span> individualConfig = {\n  fitness,\n  mutate,\n  mate\n}\n\n<span class=\"hljs-keyword\">const</span> config = <span class=\"hljs-built_in\">Object</span>.assign({}, evjsConfig, generationConfig, individualConfig)\n\n<span class=\"hljs-keyword\">const</span> evjs = <span class=\"hljs-keyword\">new</span> EvJs(config)\n\nevjs.populate(seed)\nevjs.run()</pre><h2>Generation Configuration Parameters</h2>\n<pre><span class=\"hljs-keyword\">interface</span> GenerationConfig {\n  size?: <span class=\"hljs-built_in\">number</span>\n  crossover?: <span class=\"hljs-built_in\">number</span>\n  mutation?: <span class=\"hljs-built_in\">number</span>\n  keepFittest?: <span class=\"hljs-built_in\">boolean</span>\n  optimizeKey?: <span class=\"hljs-string\">&apos;Max&apos;</span> | <span class=\"hljs-string\">&apos;Min&apos;</span>\n  select: <span class=\"hljs-built_in\">string</span>\n  selectN?: <span class=\"hljs-built_in\">number</span>\n  pair?: <span class=\"hljs-built_in\">string</span>\n}</pre><table>\n<thead>\n<tr>\n<th>Parameter</th>\n<th>Default</th>\n<th>Range/Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>size</td>\n<td>250</td>\n<td>Number</td>\n<td>Population size</td>\n</tr>\n<tr>\n<td>crossover</td>\n<td>0.9</td>\n<td>[0.0, 1.0]</td>\n<td>Probability of crossover/breeding</td>\n</tr>\n<tr>\n<td>mutation</td>\n<td>0.2</td>\n<td>[0.0, 1.0]</td>\n<td>Probability of mutation</td>\n</tr>\n<tr>\n<td>iterations</td>\n<td>100</td>\n<td>Real Number</td>\n<td>Maximum number of iterations before finishing</td>\n</tr>\n<tr>\n<td>keepFittest</td>\n<td>true</td>\n<td>Boolean</td>\n<td>Prevents losing the best fit between generations</td>\n</tr>\n<tr>\n<td>optimizeKey</td>\n<td>Max</td>\n<td>[Max, Min]</td>\n<td>Optimization method to use</td>\n</tr>\n<tr>\n<td>select</td>\n<td>N/A</td>\n<td>SelectType</td>\n<td>Generation-&gt;mutate select type to use</td>\n</tr>\n<tr>\n<td>pair</td>\n<td>N/A</td>\n<td>SelectType</td>\n<td>Generation-&gt;breed select type to use</td>\n</tr>\n</tbody>\n</table>\n<h3>SelectType</h3>\n<table>\n<thead>\n<tr>\n<th>Selectors</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Tournament{N}</td>\n<td>Fittest of N random individuals</td>\n</tr>\n<tr>\n<td>Fittest</td>\n<td>Always selects the Fittest individual</td>\n</tr>\n<tr>\n<td>Random</td>\n<td>Randomly selects an individual</td>\n</tr>\n</tbody>\n</table>\n<h2>Optimizer</h2>\n<p>The optimizer specifies how to rank individuals against each other based on an arbitrary fitness score. For example, minimizing the sum of squared error for a regression curve <code>Min</code> would be used, as a smaller fitness score is indicative of better fit.</p>\n<table>\n<thead>\n<tr>\n<th>optimizeKey</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Min</td>\n<td>The smaller fitness score of two individuals is best</td>\n</tr>\n<tr>\n<td>Max</td>\n<td>The greater fitness score of two individuals is best</td>\n</tr>\n</tbody>\n</table>\n<h2>Selection</h2>\n<p>An algorithm can be either genetic or evolutionary depending on which selection operations are used.  An algorithm is evolutionary if it only uses a Single SelectType.  If both Single and Pair-wise operations are used (and if crossover is implemented) it is genetic.</p>\n<table>\n<thead>\n<tr>\n<th>Select Type</th>\n<th>Required</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>select  (Single)</td>\n<td>Yes</td>\n<td>Selects a single individual for survival from a population</td>\n</tr>\n<tr>\n<td>pair    (Pair-wise)</td>\n<td>Optional</td>\n<td>Selects two individuals from a population for mating/crossover</td>\n</tr>\n</tbody>\n</table>\n<h2>Individual Configuration Parameters</h2>\n<pre><span class=\"hljs-keyword\">interface</span> IndividualConfig {\n  fitness: (entity: <span class=\"hljs-built_in\">any</span>): <span class=\"hljs-built_in\">number</span>\n  mutate: (entity: <span class=\"hljs-built_in\">any</span>): <span class=\"hljs-built_in\">any</span>\n  mate: (mother: <span class=\"hljs-built_in\">any</span>, father: <span class=\"hljs-built_in\">any</span>): [<span class=\"hljs-built_in\">any</span>, <span class=\"hljs-built_in\">any</span>]\n}</pre><table>\n<thead>\n<tr>\n<th>Parameter</th>\n<th>Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>fitness</td>\n<td>Function</td>\n<td>Calculates the fitness score of an individual</td>\n</tr>\n<tr>\n<td>mutate</td>\n<td>Function</td>\n<td>Mutates an individual</td>\n</tr>\n<tr>\n<td>mate</td>\n<td>Function</td>\n<td>Mates 2 individuals and returns 2 new individuals</td>\n</tr>\n</tbody>\n</table>\n<h2>Building</h2>\n<p>To clone, build, and test Genetic.js issue the following command:</p>\n<pre>git <span class=\"hljs-built_in\">clone</span> git@github.com:notvitaliy/evjs.git</pre><table>\n<thead>\n<tr>\n<th>Command</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>yarn</td>\n<td>Automatically install dev-dependencies</td>\n</tr>\n<tr>\n<td>npm test</td>\n<td>Run unit tests</td>\n</tr>\n</tbody>\n</table>\n<h2>Contributing</h2>\n<p>Feel free to open issues and send pull-requests.</p>\n"
+    },
+    {
+      "component": "footer",
+      "links": [
+        {
+          "href": "https://github.com/notVitaliy/evjs",
+          "text": "GitHub"
+        },
+        {
+          "href": "https://github.com/notVitaliy",
+          "text": "notVitaliy"
+        }
+      ]
+    }
+  ]
+}
