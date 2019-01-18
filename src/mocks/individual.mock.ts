@@ -1,20 +1,20 @@
-import { Individual } from '../individual'
-import { IndividualConfig, Fitness, Mutate, Mate } from '../individual/individual.model'
+
+import { IndividualConfig } from '../individual/individual.model'
 
 const letterMap  = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-const rand = n => Math.floor(Math.random() * n)
-const range = (min, max) => rand((max - min + 1)) + min
-const word = (n) => Array(n).fill(0).map(() => letterMap[range(0, 61)]).join('')
+const rand = (n: number) => Math.floor(Math.random() * n)
+const range = (min: number, max: number) => rand((max - min + 1)) + min
+const word = (n: number) => Array(n).fill(0).map(() => letterMap[range(0, 61)]).join('')
 
 export const seed = () => word(32)
 const password = (() => seed())()
 
 export const configIndividual: IndividualConfig = {
   entity: seed(),
-  fitness: (entity): number => {
+  fitness: (entity: any): number => {
     return entity.toString()
       .split('')
-      .reduce((fitness, n, i) => {
+      .reduce((fitness: number, n: string, i: number) => {
         const nKey = letterMap.indexOf(n)
         const iKey = letterMap.indexOf(password[i])
         return fitness += 1 - (Math.abs(~~nKey - ~~iKey) / (letterMap.length - 1))

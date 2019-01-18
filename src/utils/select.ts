@@ -1,9 +1,11 @@
 import { Individual } from '../individual'
 
-export class Select {
-  public optimize
+type Optimize = (best: Individual, curr: Individual) => number
 
-  constructor (optimize) {
+export class Select {
+  public optimize: Optimize
+
+  constructor (optimize: Optimize) {
     this.optimize = optimize
   }
 
@@ -28,29 +30,29 @@ export class Select {
     return [best]
   }
 
-  fittest(population) {
+  fittest(population: Individual[]) {
     return [population.shift()]
   }
 
-  random(population) {
+  random(population: Individual[]) {
     const i = this.getRandomIndividual(population)
     return population.splice(i, 1)
   }
 
-  getRandomIndividual(population) {
+  getRandomIndividual(population: Individual[]) {
     return Math.floor(Math.random() * population.length)
   }
 
   pair = {
-    tournament: (population, n) => [
+    tournament: (population: Individual[], n: number) => [
       this.tournament(population, n)[0],
       this.tournament(population, n)[0]
     ],
-    fittest: (population) => [
+    fittest: (population: Individual[]) => [
       this.fittest(population)[0],
       this.fittest(population)[0]
     ],
-    random: (population) => [
+    random: (population: Individual[]) => [
       this.random(population)[0],
       this.random(population)[0]
     ]

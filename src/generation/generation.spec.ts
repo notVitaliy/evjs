@@ -1,7 +1,6 @@
 import { expect } from 'chai'
 
 import { Individual } from '../individual'
-import { Optimize, Select } from '../utils'
 
 import { Generation } from './generation'
 import { configGeneration, configIndividual, seed } from '../mocks'
@@ -54,10 +53,10 @@ describe('Generation', () => {
       .to.equal(10)
   })
 
-  it('can evaluate individuals', () => {
+  it('can evaluate individuals', async () => {
     generation.populate(seed)
     const sampleIndividualFitness = generation.individuals[0].fitness
-    generation.evaluate()
+    await generation.evaluate()
 
     expect(sampleIndividualFitness)
       .to.be.undefined
@@ -70,12 +69,12 @@ describe('Generation', () => {
   describe('sort and stats', () => {
     const sorts = ['Max', 'Min']
 
-    beforeEach(() => {
+    beforeEach(async () => {
       const config = Object.assign({}, baseConfig, { optimizeKey: sorts.shift()})
       generation = new Generation(config)
 
       generation.populate(seed)
-      generation.evaluate()
+      await generation.evaluate()
 
       generation.sort()
     })
@@ -119,17 +118,17 @@ describe('Generation', () => {
     })
   })
 
-  it('can evolve', () => {
+  it('can evolve', async () => {
     generation.populate(seed)
-    generation.evaluate()
-    
+    await generation.evaluate()
+
     const newGeneration = generation.evolve()
 
     expect(newGeneration)
       .to.not.equal(generation)
   })
 
-  it('makes an equal size generation', () => {
+  it('makes an equal size generation', async () => {
     const config = Object.assign({}, baseConfig, {
       crossover: 0.5, mutation: 1, size: 100, select: 'random', keepFittest: false
     })
@@ -142,7 +141,7 @@ describe('Generation', () => {
     expect(generation.individuals.length)
       .to.equal(100)
 
-    generation.evaluate()
+    await generation.evaluate()
 
     const newGeneration = generation.evolve()
     expect(generation.individuals.length)
@@ -150,9 +149,9 @@ describe('Generation', () => {
 
   })
 
-  it('won\'t choke on large generations sizes ', () => {
+  it('won\'t choke on large generations sizes ', async () => {
     const config = Object.assign({}, baseConfig, {
-      crossover: 0.5, mutation: -1, size: 10000, select: 'fittest'
+      crossover: 0.5, mutation: -1, size: 5000, select: 'fittest'
     })
 
     generation = new Generation(config)
@@ -161,9 +160,9 @@ describe('Generation', () => {
 
     generation.populate(seed)
     expect(generation.individuals.length)
-      .to.equal(10000)
+      .to.equal(5000)
 
-    generation.evaluate()
+    await generation.evaluate()
 
     const newGeneration = generation.evolve()
     expect(generation.individuals.length)

@@ -1,4 +1,4 @@
-import * as Chance from 'chance'
+import Chance from 'chance'
 const chance = new Chance()
 
 import { IndividualConfig, Fitness, Mutate, Mate } from './individual.model'
@@ -30,8 +30,8 @@ export class Individual {
     this.mateFn = config.mate
   }
 
-  setFitness(): void {
-    this.fitness = this.fitnessFn(this.entity)
+  async setFitness(): Promise<void> {
+    this.fitness = await this.fitnessFn(this.entity)
   }
 
   evolve(): Individual {

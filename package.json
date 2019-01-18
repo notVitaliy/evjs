@@ -1,6 +1,6 @@
 {
   "name": "evjs",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Generic genetic/evolution algorithm in JS",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -34,19 +34,21 @@
   },
   "homepage": "https://github.com/notVitaliy/evjs#readme",
   "dependencies": {
-    "chalk": "^2.0.1",
-    "chance": "^1.0.10"
+    "chalk": "^2.4.2",
+    "chance": "^1.0.18"
   },
   "devDependencies": {
-    "@types/chai": "^4.0.1",
-    "@types/mocha": "^2.2.41",
-    "@types/sinon": "^2.3.2",
-    "chai": "^4.0.2",
-    "mocha": "^3.4.2",
-    "nyc": "^11.0.3",
-    "rimraf": "^2.6.1",
-    "sinon": "^2.3.6",
-    "ts-node": "^3.1.0",
-    "typescript": "^2.4.1"
+    "@types/chai": "^4.1.7",
+    "@types/chalk": "^2.2.0",
+    "@types/chance": "^1.0.1",
+    "@types/mocha": "^5.2.5",
+    "@types/sinon": "^7.0.4",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
+    "rimraf": "^2.6.3",
+    "sinon": "^7.2.2",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.4"
   }
 }

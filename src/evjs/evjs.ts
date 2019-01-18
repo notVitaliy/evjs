@@ -1,8 +1,7 @@
-import * as chalk from 'chalk'
+import chalk from 'chalk'
 
 import { Generation, GenerationConfig } from '../generation'
 import { IndividualConfig } from '../individual'
-import { Optimize } from '../utils/optimize'
 
 export interface Config extends GenerationConfig, IndividualConfig {
   iterations?: number,
@@ -28,22 +27,22 @@ export class EvJs {
       pair, optimizeKey, fitness, mutate, mate, notification }
   }
 
-  create(seed) {
+  create(seed: any) {
     this.generation = new Generation(this.config)
     this.generation.populate(seed)
   }
 
-  run() {
+  async run() {
     while(this.iteration < this.iterations) {
       this.generation = this.generation.evolve()
       this.iteration++
 
-      this.evaluate()
+      await this.evaluate()
     }
   }
 
-  private evaluate() {
-    this.generation.evaluate()
+  private async evaluate() {
+    await this.generation.evaluate()
     this.generation.sort()
 
     const percentDone = (this.iteration * 100 / this.iterations)

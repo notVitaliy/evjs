@@ -3,6 +3,8 @@
     "target": "es6",
     "sourceMap": true,
     "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "declaration": true,
     "outDir": "./dist",

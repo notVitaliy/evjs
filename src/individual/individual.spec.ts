@@ -10,8 +10,8 @@ describe('Individual', () => {
     individual = new Individual(configIndividual)
   })
 
-  it('can rate its fitness', () => {
-    individual.setFitness()
+  it('can rate its fitness', async () => {
+    await individual.setFitness()
     expect(individual.fitness).to.not.be.undefined
     expect(individual.fitness).to.be.greaterThan(0)
   })

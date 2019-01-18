@@ -53,13 +53,14 @@ export class Generation {
     }
   }
 
-  add(individual) {
+  add(individual: Individual) {
     if (this.individuals.length < this.config.size)
       this.individuals.push(individual)
   }
 
-  evaluate() {
-    this.individuals.forEach(individual => individual.setFitness())
+  async evaluate() {
+    const individuals = this.individuals.map(individual => individual.setFitness())
+    await Promise.all(individuals)
   }
 
   sort() {
@@ -76,7 +77,8 @@ export class Generation {
     }
 
     const select = new Select(this.config.optimize)
-    const selectFn = (select) => {
+
+    const selectFn = (select: Select['pair']) => {
       return typeof this.config.selectN === 'undefined'
         ? select[this.config.select](individuals)
         : select[this.config.select](individuals, this.config.selectN)
@@ -117,7 +119,7 @@ export class Generation {
     return { max, min, mean, stdev }
   }
 
-  private getStandardDeviation(items, mean) {
+  private getStandardDeviation(items: number[], mean: number) {
     const variance = items
       .map(item => (item - mean) * (item - mean))
       .reduce((a, b) => a + b) / items.length
