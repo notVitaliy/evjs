@@ -1,6 +1,6 @@
 {
   "name": "evjs",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Generic genetic/evolution algorithm in JS",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -15,14 +15,20 @@ export class Individual {
   private mutateFn: Mutate
   private mateFn: Mate
 
+  get fullname() {
+    return `${this.name.first} ${this.name.last}`
+  }
+
   constructor(config: IndividualConfig) {
     this.entity = config.entity
 
     this.name = {
       first: chance.first(),
-      last: typeof config.name !== 'undefined' && typeof config.name.last !== 'undefined'
-        ? config.name.last
-        : chance.last()
+      last:
+        typeof config.name !== 'undefined' &&
+        typeof config.name.last !== 'undefined'
+          ? config.name.last
+          : chance.last()
     }
 
     this.fitnessFn = config.fitness
@@ -31,12 +37,12 @@ export class Individual {
   }
 
   async setFitness(): Promise<void> {
-    this.fitness = await this.fitnessFn(this.entity)
+    this.fitness = await this.fitnessFn(this.entity, this.fullname)
   }
 
   evolve(): Individual {
     const entity = this.entity
-    const mutated = this.mutateFn(entity)
+    const mutated = this.mutateFn(entity, this.fullname)
     const config = this.makeConfig(mutated)
 
     return new Individual(config)
@@ -45,7 +51,7 @@ export class Individual {
   breed(other: Individual): [Individual, Individual] {
     const mother = this.entity
     const father = other.entity
-    const kids = this.mateFn(mother, father)
+    const kids = this.mateFn(mother, father, this.fullname, other.fullname)
     const son = this.makeConfig(kids[0])
     const daughter = this.makeConfig(kids[1])
 
@@ -53,10 +59,7 @@ export class Individual {
       last: other.name.last
     }
 
-    return [
-      new Individual(son),
-      new Individual(daughter)
-    ]
+    return [new Individual(son), new Individual(daughter)]
   }
 
   makeConfig(entity: any): IndividualConfig {
