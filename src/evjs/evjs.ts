@@ -3,13 +3,16 @@ import chalk from 'chalk'
 import { Generation, GenerationConfig } from '../generation'
 import { IndividualConfig } from '../individual'
 
+export { GenerationConfig } from '../generation'
+export { IndividualConfig } from '../individual'
+
 export interface Config extends GenerationConfig, IndividualConfig {
-  iterations?: number,
+  iterations?: number
   notification?: number
+  notifyIndividual?: boolean
 }
 
 export class EvJs {
-  private seed: any
   private iteration: number
   private iterations: number
   private config: Config
@@ -20,11 +23,35 @@ export class EvJs {
     this.iteration = 0
     this.iterations = config.iterations
 
-    const { size, crossover, mutation, keepFittest, select, pair,
-      optimizeKey, fitness, mutate, mate, notification } = config
+    const {
+      size,
+      crossover,
+      mutation,
+      keepFittest,
+      select,
+      pair,
+      optimizeKey,
+      fitness,
+      mutate,
+      mate,
+      notification,
+      notifyIndividual
+    } = config
 
-    this.config = { size, crossover, mutation, keepFittest, select,
-      pair, optimizeKey, fitness, mutate, mate, notification }
+    this.config = {
+      size,
+      crossover,
+      mutation,
+      keepFittest,
+      select,
+      pair,
+      optimizeKey,
+      fitness,
+      mutate,
+      mate,
+      notification,
+      notifyIndividual
+    }
   }
 
   create(seed: any) {
@@ -33,7 +60,7 @@ export class EvJs {
   }
 
   async run() {
-    while(this.iteration < this.iterations) {
+    while (this.iteration < this.iterations) {
       this.generation = this.generation.evolve()
       this.iteration++
 
@@ -45,12 +72,16 @@ export class EvJs {
     await this.generation.evaluate()
     this.generation.sort()
 
-    const percentDone = (this.iteration * 100 / this.iterations)
+    const percentDone = (this.iteration * 100) / this.iterations
 
     const generation = chalk.red(`GENERATION: ${this.iteration}`)
     this.log(generation)
 
-    if (this.iteration === 1 || this.iteration === this.iterations || percentDone % (this.config.notification * 100) === 0) {
+    if (
+      this.iteration === 1 ||
+      this.iteration === this.iterations ||
+      percentDone % (this.config.notification * 100) === 0
+    ) {
       this.notify()
     }
   }
@@ -60,6 +91,7 @@ export class EvJs {
     const statsStr = chalk.blue(JSON.stringify(stats, null, 2))
     this.log(`Stats: ${statsStr}`)
 
+    if (!this.config.notifyIndividual) return this.log('')
     this.generation.individuals.forEach(individual => {
       const name = `${individual.name.first} ${individual.name.last}`
       const config = individual.entity
