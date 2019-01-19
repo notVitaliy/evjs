@@ -76,8 +76,12 @@ export class Generation {
     const generation = new Generation(config)
 
     if (this.config.keepFittest) {
-      generation.individuals.push(individuals[0])
-      generation.individuals.push(individuals[0].evolve())
+      const individual =
+        Math.random() <= this.config.mutation
+          ? individuals[0].evolve()
+          : individuals[0]
+
+      generation.individuals.push(individual)
     }
 
     const select = new Select(this.config.optimize)
