@@ -61,10 +61,10 @@ export class EvJs {
 
   async run() {
     while (this.iteration < this.iterations) {
+      await this.evaluate()
+
       this.generation = this.generation.evolve()
       this.iteration++
-
-      await this.evaluate()
     }
   }
 
