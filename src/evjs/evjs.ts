@@ -9,7 +9,7 @@ export { IndividualConfig } from '../individual'
 export interface Config extends GenerationConfig, IndividualConfig {
   iterations?: number
   notification?: number
-  notifyIndividual?: boolean
+  notifyBestOnly?: boolean
 }
 
 export class EvJs {
@@ -35,7 +35,7 @@ export class EvJs {
       mutate,
       mate,
       notification,
-      notifyIndividual
+      notifyBestOnly: notifyIndividual
     } = config
 
     this.config = {
@@ -50,7 +50,7 @@ export class EvJs {
       mutate,
       mate,
       notification,
-      notifyIndividual
+      notifyBestOnly: notifyIndividual
     }
   }
 
@@ -91,7 +91,20 @@ export class EvJs {
     const statsStr = chalk.blue(JSON.stringify(stats, null, 2))
     this.log(`Stats: ${statsStr}`)
 
-    if (!this.config.notifyIndividual) return this.log('')
+    if (this.config.notifyBestOnly) {
+      const individual = this.generation.individuals[0]
+      const name = `${individual.name.first} ${individual.name.last}`
+      const config = individual.entity
+      const deviation = Math.abs(stats.mean - individual.fitness)
+      const fitness = individual.fitness
+      const data = { fitness, deviation, config, name }
+
+      const json = chalk.green(JSON.stringify(data, null, 1))
+      this.log(`Individual: ${json}`)
+
+      return this.log('')
+    }
+
     this.generation.individuals.forEach(individual => {
       const name = `${individual.name.first} ${individual.name.last}`
       const config = individual.entity
