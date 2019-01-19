@@ -18,11 +18,11 @@ export class Generation {
       size: config.size || 10,
       crossover: config.crossover || 0.9,
       mutation: config.mutation || 0.2,
-      keepFittest: typeof config.keepFittest !== 'undefined'
-        ? config.keepFittest : true,
+      keepFittest:
+        typeof config.keepFittest !== 'undefined' ? config.keepFittest : true,
       optimizeKey: config.optimizeKey,
-      optimize: config.optimizeKey === 'Max'
-        ? new Optimize().max : new Optimize().min,
+      optimize:
+        config.optimizeKey === 'Max' ? new Optimize().max : new Optimize().min,
       select: config.select,
       pair: config.pair
     }
@@ -34,7 +34,8 @@ export class Generation {
     }
 
     if (/tournament/g.test(this.config.select)) {
-      this.config.selectN = Number(this.config.select.replace(/[^0-9]/g, '')) || 2
+      this.config.selectN =
+        Number(this.config.select.replace(/[^0-9]/g, '')) || 2
       this.config.select = this.config.select.replace(/[0-9]/g, '')
     }
 
@@ -42,10 +43,8 @@ export class Generation {
   }
 
   populate(seed: any): void {
-    while(this.individuals.length < this.config.size) {
-      const entity = typeof seed === 'function'
-        ? seed()
-        : seed
+    while (this.individuals.length < this.config.size) {
+      const entity = typeof seed === 'function' ? seed() : seed
 
       const config = Object.assign({}, { entity }, this.individualConfig)
       const individual = new Individual(config).evolve()
@@ -59,12 +58,16 @@ export class Generation {
   }
 
   async evaluate() {
-    const individuals = this.individuals.map(individual => individual.setFitness())
+    const individuals = this.individuals.map(individual =>
+      individual.setFitness()
+    )
     await Promise.all(individuals)
   }
 
   sort() {
-    this.individuals = this.individuals.sort((a, b) => this.config.optimize(a, b))
+    this.individuals = this.individuals.sort((a, b) =>
+      this.config.optimize(a, b)
+    )
   }
 
   evolve() {
@@ -73,7 +76,8 @@ export class Generation {
     const generation = new Generation(config)
 
     if (this.config.keepFittest) {
-      generation.individuals.push(individuals.shift())
+      generation.individuals.push(individuals[0])
+      generation.individuals.push(individuals[0].evolve())
     }
 
     const select = new Select(this.config.optimize)
@@ -84,7 +88,7 @@ export class Generation {
         : select[this.config.select](individuals, this.config.selectN)
     }
 
-    while(generation.individuals.length < generation.config.size) {
+    while (generation.individuals.length < generation.config.size) {
       if (individuals.length >= 2 && this.shouldBreed()) {
         let kids = selectFn(select.pair)
         kids = kids[0].breed(kids[1])
@@ -93,9 +97,7 @@ export class Generation {
         generation.add(kids[1])
       } else {
         let kid = selectFn(select)[0]
-        kid = Math.random() <= this.config.mutation
-          ? kid.evolve()
-          : kid
+        kid = Math.random() <= this.config.mutation ? kid.evolve() : kid
         generation.add(kid)
       }
     }
@@ -104,8 +106,7 @@ export class Generation {
   }
 
   get stats() {
-    const fitnesses = this.individuals
-      .map(individual => individual.fitness)
+    const fitnesses = this.individuals.map(individual => individual.fitness)
 
     const mean = fitnesses.reduce((a, b) => a + b) / fitnesses.length
     const stdev = this.getStandardDeviation(fitnesses, mean)
@@ -113,22 +114,21 @@ export class Generation {
     let min = fitnesses[fitnesses.length - 1]
 
     if (this.config.optimizeKey === 'Min') {
-      max = [min, min = max][0]
+      max = [min, (min = max)][0]
     }
 
     return { max, min, mean, stdev }
   }
 
   private getStandardDeviation(items: number[], mean: number) {
-    const variance = items
-      .map(item => (item - mean) * (item - mean))
-      .reduce((a, b) => a + b) / items.length
+    const variance =
+      items.map(item => (item - mean) * (item - mean)).reduce((a, b) => a + b) /
+      items.length
 
     return Math.sqrt(variance)
   }
 
   private shouldBreed() {
-    return this.config.crossover > 0
-      && Math.random() <= this.config.crossover
+    return this.config.crossover > 0 && Math.random() <= this.config.crossover
   }
 }
